@@ -14,15 +14,9 @@ O **DevCard** é uma aplicação mobile desenvolvida em **React Native** (Expo) 
 ## 📸 Screenshots
 
 Aqui estão as principais telas da aplicação:
-
 | Home & Cadastro | Preview do Cartão | Sucesso |
 | :---: | :---: | :---: |
-| ![Home e Cadastro]
-(./devcard/assets/cadastro.png) | 
-
-![Preview](./devcard/assets/preview.png) | 
-
-![Sucesso](./devcard/assets/sucesso.png) |
+| ![Home](./devcard/assets/cadastro.png) | ![Preview](./devcard/assets/preview.png) | ![Sucesso](./devcard/assets/sucesso.png) |
 
 ## 🛠️ Tecnologias Utilizadas
 
