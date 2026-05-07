@@ -18,11 +18,11 @@ Aqui estão as principais telas da aplicação:
 | Home & Cadastro | Preview do Cartão | Sucesso |
 | :---: | :---: | :---: |
 | ![Home e Cadastro]
-(./assets/cadastro.png) | 
+(./devcard/assets/cadastro.png) | 
 
-![Preview](./assets/preview.png) | 
+![Preview](./devcard/assets/preview.png) | 
 
-![Sucesso](./assets/sucesso.png) |
+![Sucesso](./devcard/assets/sucesso.png) |
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -44,7 +44,7 @@ Aqui estão as principais telas da aplicação:
 
 1.  **Clone o repositório:**
     ```bash
-    git clone https://github.com/[SEU_USUARIO]/devcard.git
+    git clone https://github.com/NicollyMendes/DevCard.git
     ```
 
 2.  **Instale as dependências:**
@@ -61,4 +61,4 @@ Aqui estão as principais telas da aplicação:
     Escaneie o QR Code com o app **Expo Go**.
 
 ---
-Desenvolvido por [Seu Nome] - Aula 7 de Aplicações Móveis.
+Desenvolvido por Nicolly Mendes Cescon - Aula 7 de Aplicações Móveis.
