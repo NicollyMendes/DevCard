@@ -4,20 +4,16 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 
 export default function Preview() {
   const router = useRouter();
-  
-  // Captura os parâmetros enviados pela tela de cadastro
   const { nome, cargo, empresa, anos, tecnologia, cor } = useLocalSearchParams();
 
-  // Lógica Condicional para o Nível (PDR - Tarefa 6)
   const anosNum = Number(anos);
   let nivel = "";
   if (anosNum <= 2) nivel = "Júnior";
   else if (anosNum <= 5) nivel = "Pleno";
-  else nivel = "Sénior";
+  else nivel = "Sênior";
 
-  // Mapeamento de cores baseado na escolha do usuário
   const coresFundo = {
-    azul: '#6C47FF',
+    azul: '#5B50E0',
     verde: '#2E7D32',
     roxo: '#6A1B9A'
   };
@@ -25,7 +21,6 @@ export default function Preview() {
   const corSelecionada = coresFundo[cor as keyof typeof coresFundo] || coresFundo.azul;
 
   const handleFinalizar = () => {
-    // Usamos replace para que o usuário não consiga voltar para o preview após finalizar
     router.replace('/sucesso');
   };
 
@@ -33,38 +28,41 @@ export default function Preview() {
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.tituloPagina}>Pré-visualização</Text>
 
-      {/* O CARTÃO (DevCard) */}
-      <View style={[styles.cartao, { backgroundColor: corSelecionada }]}>
-        <View style={styles.headerCartao}>
+      <View style={styles.card}>
+        <View style={[styles.headerColor, { backgroundColor: corSelecionada }]} />
+        
+        <View style={styles.content}>
+          <View style={styles.photoContainer}>
+            <View style={[styles.photoPlaceholder, { borderColor: corSelecionada }]}>
+              <Text style={styles.emojiPerfil}>👤</Text>
+            </View>
+          </View>
+
           <Text style={styles.nome}>{nome}</Text>
-          <View style={styles.badge}>
-            <Text style={styles.badgeTexto}>{nivel}</Text>
-          </View>
-        </View>
+          <Text style={styles.cargo}>{cargo}</Text>
+          <Text style={styles.nivelTexto}>{nivel}</Text>
+          
+          {empresa ? (
+            <View style={styles.empresaBadge}>
+              <Text style={[styles.empresaTexto, { color: corSelecionada }]}>@{empresa}</Text>
+            </View>
+          ) : null}
 
-        <Text style={styles.infoLabel}>Cargo</Text>
-        <Text style={styles.infoValor}>{cargo}</Text>
+          <View style={styles.divider} />
 
-        {empresa ? (
-          <>
-            <Text style={styles.infoLabel}>Empresa</Text>
-            <Text style={styles.infoValor}>{empresa}</Text>
-          </>
-        ) : null}
-
-        <View style={styles.row}>
-          <View>
-            <Text style={styles.infoLabel}>Experiência</Text>
-            <Text style={styles.infoValor}>{anos} anos</Text>
-          </View>
-          <View>
-            <Text style={styles.infoLabel}>Tecnologia</Text>
-            <Text style={styles.infoValor}>{tecnologia}</Text>
+          <View style={styles.footer}>
+            <View style={styles.infoRow}>
+              <Text style={styles.infoLabel}>Tecnologia</Text>
+              <Text style={styles.infoValor}>{tecnologia}</Text>
+            </View>
+            <View style={styles.infoRow}>
+              <Text style={styles.infoLabel}>Experiência</Text>
+              <Text style={styles.infoValor}>{anos} anos</Text>
+            </View>
           </View>
         </View>
       </View>
 
-      {/* AÇÕES */}
       <TouchableOpacity style={styles.botaoConfirmar} onPress={handleFinalizar}>
         <Text style={styles.botaoTexto}>Confirmar e Salvar</Text>
       </TouchableOpacity>
@@ -77,35 +75,136 @@ export default function Preview() {
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 24, backgroundColor: '#F5F5F5', flexGrow: 1, justifyContent: 'center' },
-  tituloPagina: { fontSize: 22, fontWeight: 'bold', marginBottom: 20, textAlign: 'center' },
-  cartao: {
-    padding: 24,
-    borderRadius: 20,
-    elevation: 8,
+  container: { 
+    padding: 24, 
+    backgroundColor: '#F5F5F5', 
+    flexGrow: 1, 
+    justifyContent: 'center' 
+  },
+  tituloPagina: { 
+    fontSize: 22, 
+    fontWeight: 'bold', 
+    marginBottom: 25, 
+    textAlign: 'center',
+    color: '#333'
+  },
+  card: {
+    backgroundColor: '#FFF',
+    width: '100%',
+    borderRadius: 24,
+    overflow: 'hidden',
+    elevation: 12,
     shadowColor: '#000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.15,
+    shadowRadius: 20,
+    marginBottom: 40,
+  },
+  headerColor: {
+    height: 100,
+    width: '100%',
+  },
+  content: {
+    alignItems: 'center',
+    paddingBottom: 30,
+    paddingHorizontal: 20,
+  },
+  photoContainer: {
+    marginTop: -50,
+    marginBottom: 12,
+  },
+  photoPlaceholder: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: '#F0F0F0',
+    borderWidth: 4,
+    borderColor: '#FFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emojiPerfil: {
+    fontSize: 45,
+  },
+  nome: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#1A1A1A',
+  },
+  cargo: {
+    fontSize: 16,
+    color: '#666',
+    marginTop: 2,
+  },
+  nivelTexto: {
+    fontSize: 14,
+    color: '#888',
+    fontWeight: '500',
+    marginTop: 2,
+  },
+  empresaBadge: {
+    backgroundColor: '#F0F2F5',
+    paddingHorizontal: 14,
+    paddingVertical: 6,
+    borderRadius: 20,
+    marginTop: 12,
+  },
+  empresaTexto: {
+    fontWeight: '700',
+    fontSize: 13,
+  },
+  divider: {
+    width: '100%',
+    height: 1,
+    backgroundColor: '#F0F0F0',
+    marginVertical: 25,
+  },
+  footer: {
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-around',
+  },
+  infoRow: {
+    alignItems: 'center',
+  },
+  infoLabel: {
+    fontSize: 11,
+    color: '#AAA',
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+    marginBottom: 4,
+  },
+  infoValor: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  botaoConfirmar: { 
+    backgroundColor: '#5B50E0', 
+    height: 58, 
+    borderRadius: 30, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    marginBottom: 12,
+    elevation: 4,
+    shadowColor: '#5B50E0',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
-    shadowRadius: 5,
-    marginBottom: 40
+    shadowRadius: 8,
   },
-  headerCartao: { 
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
-    alignItems: 'flex-start', 
-    marginBottom: 20 
+  botaoTexto: { 
+    color: '#FFF', 
+    fontSize: 18, 
+    fontWeight: 'bold' 
   },
-  nome: { color: '#FFF', fontSize: 24, fontWeight: 'bold', flex: 1, marginRight: 10 },
-  badge: { backgroundColor: 'rgba(255,255,255,0.2)', paddingHorizontal: 12, paddingVertical: 4, borderRadius: 12 },
-  badgeTexto: { color: '#FFF', fontWeight: 'bold', fontSize: 12 },
-  infoLabel: { color: 'rgba(255,255,255,0.7)', fontSize: 12, textTransform: 'uppercase', marginTop: 15 },
-  infoValor: { color: '#FFF', fontSize: 18, fontWeight: '500' },
-  row: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 5 },
-  botaoConfirmar: { 
-    backgroundColor: '#6C47FF', height: 56, borderRadius: 12, 
-    justifyContent: 'center', alignItems: 'center', marginBottom: 12 
+  botaoVoltar: { 
+    height: 50, 
+    justifyContent: 'center', 
+    alignItems: 'center' 
   },
-  botaoTexto: { color: '#FFF', fontSize: 18, fontWeight: 'bold' },
-  botaoVoltar: { height: 56, justifyContent: 'center', alignItems: 'center' },
-  botaoVoltarTexto: { color: '#666', fontSize: 16 }
+  botaoVoltarTexto: { 
+    color: '#888', 
+    fontSize: 16,
+    fontWeight: '500'
+  }
 });

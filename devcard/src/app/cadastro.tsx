@@ -14,18 +14,14 @@ import { useRouter } from 'expo-router';
 export default function Cadastro() {
   const router = useRouter();
 
-  // Estados para capturar os dados do formulário
   const [nome, setNome] = useState('');
   const [cargo, setCargo] = useState('');
   const [empresa, setEmpresa] = useState('');
   const [anos, setAnos] = useState('');
   const [tecnologia, setTecnologia] = useState('');
   const [cor, setCor] = useState<'azul' | 'verde' | 'roxo'>('azul');
-
-  // Estado para gerir as mensagens de erro
   const [erros, setErros] = useState<Record<string, string>>({});
 
-  // Função de validação baseada no PDR
   const validarCampos = () => {
     const novosErros: Record<string, string> = {};
 
@@ -48,7 +44,6 @@ export default function Cadastro() {
 
   const handleGerarCartao = () => {
     if (validarCampos()) {
-      // Navega para o Preview enviando os dados via parâmetros
       router.push({
         pathname: '/preview',
         params: { nome, cargo, empresa, anos, tecnologia, cor }
@@ -62,22 +57,30 @@ export default function Cadastro() {
       style={{ flex: 1 }}
     >
       <ScrollView contentContainerStyle={styles.scrollContainer}>
+        
+        <TouchableOpacity 
+          onPress={() => router.replace('/')} 
+          style={styles.linkVoltar}
+          activeOpacity={0.7}
+        >
+          <Text style={styles.setaVoltar}>←</Text>
+          <Text style={styles.textoVoltar}>Voltar para o início</Text>
+        </TouchableOpacity>
+
         <Text style={styles.titulo}>Crie o seu DevCard</Text>
         <Text style={styles.subtitulo}>Preencha os campos abaixo para personalizar o seu cartão.</Text>
 
-        {/* Campo: Nome */}
         <View style={styles.inputBox}>
           <Text style={styles.label}>Nome Completo*</Text>
           <TextInput 
             style={[styles.input, erros.nome && styles.inputErro]} 
             value={nome} 
             onChangeText={setNome} 
-            placeholder="Ex: Alan Turing"
+            placeholder="Ex: Fulano"
           />
           {erros.nome && <Text style={styles.erroText}>{erros.nome}</Text>}
         </View>
 
-        {/* Campo: Cargo */}
         <View style={styles.inputBox}>
           <Text style={styles.label}>Cargo*</Text>
           <TextInput 
@@ -89,7 +92,6 @@ export default function Cadastro() {
           {erros.cargo && <Text style={styles.erroText}>{erros.cargo}</Text>}
         </View>
 
-        {/* Campo: Empresa */}
         <View style={styles.inputBox}>
           <Text style={styles.label}>Empresa (Opcional)</Text>
           <TextInput 
@@ -100,7 +102,6 @@ export default function Cadastro() {
           />
         </View>
 
-        {/* Campo: Anos de Experiência */}
         <View style={styles.inputBox}>
           <Text style={styles.label}>Anos de Experiência*</Text>
           <TextInput 
@@ -113,7 +114,6 @@ export default function Cadastro() {
           {erros.anos && <Text style={styles.erroText}>{erros.anos}</Text>}
         </View>
 
-        {/* Campo: Tecnologia */}
         <View style={styles.inputBox}>
           <Text style={styles.label}>Tecnologia Favorita*</Text>
           <TextInput 
@@ -125,7 +125,6 @@ export default function Cadastro() {
           {erros.tecnologia && <Text style={styles.erroText}>{erros.tecnologia}</Text>}
         </View>
 
-        {/* Seleção de Cores Dinâmica */}
         <Text style={styles.label}>Cor do Cartão*</Text>
         <View style={styles.colorContainer}>
           {(['azul', 'verde', 'roxo'] as const).map((item) => (
@@ -158,6 +157,24 @@ const styles = StyleSheet.create({
     padding: 24, 
     backgroundColor: '#F5F5F5',
     paddingBottom: 40 
+  },
+  linkVoltar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+    marginTop: 10,
+    alignSelf: 'flex-start',
+  },
+  setaVoltar: {
+    fontSize: 20,
+    color: '#5B50E0',
+    marginRight: 8,
+    fontWeight: 'bold',
+  },
+  textoVoltar: {
+    fontSize: 16,
+    color: '#5B50E0',
+    fontWeight: '600',
   },
   titulo: { 
     fontSize: 28, 
@@ -215,9 +232,9 @@ const styles = StyleSheet.create({
     transform: [{ scale: 1.1 }]
   },
   botao: { 
-    backgroundColor: '#6C47FF', 
+    backgroundColor: '#5B50E0', 
     height: 56, 
-    borderRadius: 12,
+    borderRadius: 30,
     justifyContent: 'center', 
     alignItems: 'center',
     marginTop: 10,
