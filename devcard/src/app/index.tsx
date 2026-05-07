@@ -8,7 +8,7 @@ export default function Home() {
     <View style={styles.container}>
       <View style={styles.content}>
         <View style={styles.iconBox}>
-          <Text style={styles.icon}>í²³</Text>
+          <Text style={styles.icon}>ï¿½ï¿½ï¿½</Text>
         </View>
 
         <Text style={styles.titulo}>DevCard</Text>
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   titulo: {
     fontSize: 36,
     fontWeight: 'bold',
-    color: '#6C47FF',
+    color: '#5B50E0',
     marginBottom: 8,
   },
   subtitulo: {
